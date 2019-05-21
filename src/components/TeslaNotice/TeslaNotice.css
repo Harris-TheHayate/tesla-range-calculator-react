@@ -1,0 +1,13 @@
+.tesla-battery__notice {
+  width:100%;
+  padding: auto;
+  font-size: 12px;
+  color: #666;
+  line-height: 20px;
+  position:fixed;
+  bottom:0;
+}
+
+.tesla-battery__notice p {
+  margin:1px auto;
+}

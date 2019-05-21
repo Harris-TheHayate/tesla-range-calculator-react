@@ -5,7 +5,7 @@ import Header from './components/Header/Header.js';
 // import TeslaCounter from './components/TeslaCounter/TeslaCounter.js';
 // import TeslaClimate from './components/TeslaClimate/TeslaClimate.js';
 // import TeslaWheels from './components/TeslaWheels/TeslaWheels.js';
-// import TeslaNotice from './components/TeslaNotice/TeslaNotice.js';
+import TeslaNotice from './components/TeslaNotice/TeslaNotice.js';
 import TeslaBattery from './containers/TeslaBattery.js';
 
 class App extends Component {
@@ -14,6 +14,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <TeslaBattery />
+        <TeslaNotice />
       </div>
     );
   }
