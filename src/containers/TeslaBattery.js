@@ -4,7 +4,7 @@ import TeslaCar from '../components/TeslaCar/TeslaCar';
 import TeslaStats from '../components/TeslaStats/TeslaStats';
 import TeslaCounter from '../components/TeslaCounter/TeslaCounter';
 import TeslaClimate from '../components/TeslaClimate/TeslaClimate';
-// import TeslaWheels from './components/TeslaWheels/TeslaWheels.js';
+import TeslaWheels from '../components/TeslaWheels/TeslaWheels.js';
 import database from '../data/database';
 class TeslaBattery extends React.Component {
   constructor(props) {
@@ -16,6 +16,8 @@ class TeslaBattery extends React.Component {
     this.decrement = this.decrement.bind(this);
     this.updateCounterState = this.updateCounterState.bind(this);
     this.handleChangeClimate = this.handleChangeClimate.bind(this);
+    this.handleChangeWheels = this.handleChangeWheels.bind(this);
+    this.statsUpdate = this.statsUpdate.bind(this);
 
     this.state = {
       carstats: [],
@@ -103,6 +105,12 @@ class TeslaBattery extends React.Component {
     this.setState({ config });
   }
 
+  handleChangeWheels(size) {
+    const config = {...this.state.config};
+    config['wheels'] = size;
+    this.setState({ config });
+  }
+
   render() {
     const { config, carstats } = this.state;
     return (
@@ -125,12 +133,16 @@ class TeslaBattery extends React.Component {
               decrement={this.decrement}
             />
           </div>
-          <TeslaClimate
-             value={this.state.config.climate}
-             limit={this.state.config.temperature > 10}
-             handleChangeClimate={this.handleChangeClimate}
-          />  
         </div>
+        <TeslaClimate
+          value={this.state.config.climate}
+          limit={this.state.config.temperature > 10}
+          handleChangeClimate={this.handleChangeClimate}
+        />
+        <TeslaWheels
+          value={this.state.config.wheels}
+          handleChangeWheels={this.handleChangeWheels}
+        />
       </form>
     )
   }
