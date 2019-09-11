@@ -5,7 +5,7 @@ import TeslaStats from '../components/TeslaStats/TeslaStats';
 import TeslaCounter from '../components/TeslaCounter/TeslaCounter';
 import TeslaClimate from '../components/TeslaClimate/TeslaClimate';
 import TeslaWheels from '../components/TeslaWheels/TeslaWheels.js';
-import database from '../data/database';
+import BatteryTime from '../data/BatteryTime';
 class TeslaBattery extends React.Component {
 	constructor(props) {
 		super(props);
@@ -31,7 +31,7 @@ class TeslaBattery extends React.Component {
 	}
 
 	calculateStats = (models, value) => {
-		const dataModels = database;
+		const dataModels = BatteryTime;
 		return models.map(model => {
 			const { speed, temperature, climate, wheels } = value;
 			const miles = dataModels[model][wheels][climate ? 'on' : 'off'].speed[speed][temperature];
