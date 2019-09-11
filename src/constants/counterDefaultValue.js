@@ -1,4 +1,4 @@
-export const counterDefaultVal = {
+export const counterDefaultValue = {
 	speed: {
 		title: 'Speed',
 		unit: 'mph',
