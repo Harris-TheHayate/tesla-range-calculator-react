@@ -106,26 +106,13 @@ if (isProd) {
       }
     }),
     new UglifyJSPlugin({
-      parallel: true,
-      ecma: 5,
-      minimize: isProd,
-      mangle: isProd,
-      output: {
-        comments: false
+      uglifyOptions: {
+        compress: {
+          warnings: false
+        }
       },
-      sourceMap: false,
-      compress: {
-        sequences: true,
-        dead_code: true,
-        conditionals: true,
-        booleans: true,
-        unused: true,
-        if_return: true,
-        join_vars: true,
-        loops: true,
-        passes: 3
-      }
-    })
+      parallel: true
+    }),
   );
 }
 
