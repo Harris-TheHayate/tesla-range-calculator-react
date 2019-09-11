@@ -1,11 +1,11 @@
-import React from 'react';
-import './TeslaBattery.css';
-import TeslaCar from '../components/TeslaCar/TeslaCar';
-import TeslaStats from '../components/TeslaStats/TeslaStats';
-import TeslaCounter from '../components/TeslaCounter/TeslaCounter';
-import TeslaClimate from '../components/TeslaClimate/TeslaClimate';
-import TeslaWheels from '../components/TeslaWheels/TeslaWheels.js';
-import database from '../data/database';
+import React from "react";
+import "./TeslaBattery.css";
+import TeslaCar from "../components/TeslaCar/TeslaCar";
+import TeslaStats from "../components/TeslaStats/TeslaStats";
+import TeslaCounter from "../components/TeslaCounter/TeslaCounter";
+import TeslaClimate from "../components/TeslaClimate/TeslaClimate";
+import TeslaWheels from "../components/TeslaWheels/TeslaWheels.js";
+import database from "../data/database";
 class TeslaBattery extends React.Component {
   constructor(props) {
     super(props);
@@ -27,43 +27,50 @@ class TeslaBattery extends React.Component {
         climate: true,
         wheels: 19
       }
-    }
+    };
   }
-  
+
   calculateStats = (models, value) => {
-    const dataModels  = database;
+    const dataModels = database;
     return models.map(model => {
       const { speed, temperature, climate, wheels } = value;
-      const miles = dataModels[model][wheels][climate ? 'on' : 'off'].speed[speed][temperature];
+      const miles =
+        dataModels[model][wheels][climate ? "on" : "off"].speed[speed][
+          temperature
+        ];
       return {
         model,
         miles
       };
-    })
-  }
-  
+    });
+  };
+
   statsUpdate() {
-    const carModels = ['60', '60D', '75', '75D', '90D', 'P100D'];
+    const carModels = ["60", "60D", "75", "75D", "90D", "P100D"];
     this.setState({
       carstats: this.calculateStats(carModels, this.state.config)
-    })  
-  };
-    
+    });
+  }
+
   componentDidMount() {
-    this.statsUpdate(); 
-  };
+    this.statsUpdate();
+  }
 
   updateCounterState(title, newValue) {
     const config = { ...this.state.config };
-    title === 'Speed' ? config['speed'] = newValue : config['temperature'] = newValue;
-    this.setState({ config }, () => {this.statsUpdate()});
+    title === "Speed"
+      ? (config["speed"] = newValue)
+      : (config["temperature"] = newValue);
+    this.setState({ config }, () => {
+      this.statsUpdate();
+    });
   }
 
   increment(e, title) {
     e.preventDefault();
     let currentValue, maxValue, step;
     const { speed, temperature } = this.props.counterDefaultVal;
-    if (title === 'Speed') {
+    if (title === "Speed") {
       currentValue = this.state.config.speed;
       maxValue = speed.max;
       step = speed.step;
@@ -78,12 +85,12 @@ class TeslaBattery extends React.Component {
       this.updateCounterState(title, newValue);
     }
   }
-  
+
   decrement(e, title) {
     e.preventDefault();
     let currentValue, minValue, step;
     const { speed, temperature } = this.props.counterDefaultVal;
-    if (title === 'Speed') {
+    if (title === "Speed") {
       currentValue = this.state.config.speed;
       minValue = speed.min;
       step = speed.step;
@@ -100,15 +107,19 @@ class TeslaBattery extends React.Component {
   }
 
   handleChangeClimate() {
-    const config = {...this.state.config};
-    config['climate'] = !this.state.config.climate;
-    this.setState({ config }, () => {this.statsUpdate()});
+    const config = { ...this.state.config };
+    config["climate"] = !this.state.config.climate;
+    this.setState({ config }, () => {
+      this.statsUpdate();
+    });
   }
 
   handleChangeWheels(size) {
-    const config = {...this.state.config};
-    config['wheels'] = size;
-    this.setState({ config }, () => {this.statsUpdate()});
+    const config = { ...this.state.config };
+    config["wheels"] = size;
+    this.setState({ config }, () => {
+      this.statsUpdate();
+    });
   }
 
   render() {
@@ -116,8 +127,8 @@ class TeslaBattery extends React.Component {
     return (
       <form className="tesla-battery">
         <h1>Range Per Charge</h1>
-        <TeslaCar wheelsize={ config.wheels } />
-        <TeslaStats carstats={ carstats } />
+        <TeslaCar wheelsize={config.wheels} />
+        <TeslaStats carstats={carstats} />
         <div className="tesla-controls cf">
           <TeslaCounter
             currentValue={this.state.config.speed}
@@ -132,19 +143,19 @@ class TeslaBattery extends React.Component {
               increment={this.increment}
               decrement={this.decrement}
             />
+            <TeslaClimate
+              value={this.state.config.climate}
+              limit={this.state.config.temperature > 10}
+              handleChangeClimate={this.handleChangeClimate}
+            />
           </div>
+          <TeslaWheels
+            value={this.state.config.wheels}
+            handleChangeWheels={this.handleChangeWheels}
+          />
         </div>
-        <TeslaClimate
-          value={this.state.config.climate}
-          limit={this.state.config.temperature > 10}
-          handleChangeClimate={this.handleChangeClimate}
-        />
-        <TeslaWheels
-          value={this.state.config.wheels}
-          handleChangeWheels={this.handleChangeWheels}
-        />
       </form>
-    )
+    );
   }
 }
 export default TeslaBattery;
