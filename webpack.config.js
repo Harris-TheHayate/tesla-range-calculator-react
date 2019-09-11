@@ -13,6 +13,7 @@ const config = {
 	entry: './src/index.js',
 	resolve: {
 		extensions: ['*', '.js', '.jsx'],
+		modules: ['node_modules'],
 	},
 	output: {
 		path: path.join(__dirname, 'public', 'dist'),
@@ -73,6 +74,11 @@ const config = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
+		new MiniCssExtractPlugin({
+			//TODO: filename: !isProdBuild ? 'styles.css' : 'styles-[hash].css'
+			filename: '[name].css',
+			chunkFilename: '[name].css',
+		}),
 		new HtmlWebPackPlugin({
 			favicon: './public/favicon.ico',
 			template: './public/index.html',
