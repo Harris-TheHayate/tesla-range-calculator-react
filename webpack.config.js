@@ -98,21 +98,16 @@ if (isProd) {
       ]
     }
   });
-  config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+  config.optimization.minimizer.push(
+    new UglifyJSPlugin({ parallel: true }),
+    new OptimizeCSSAssetsPlugin({})
+  );
   config.plugins.push(
     new webpack.DefinePlugin({
       "process.env": {
-        "NODE_ENV": JSON.stringify("production")
+        NODE_ENV: JSON.stringify("production")
       }
-    }),
-    new UglifyJSPlugin({
-      uglifyOptions: {
-        compress: {
-          warnings: false
-        }
-      },
-      parallel: true
-    }),
+    })
   );
 }
 
