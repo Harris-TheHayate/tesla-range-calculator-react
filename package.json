@@ -12,12 +12,12 @@
     "stylelint": "^10.1.0"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node server/server.js",
     "dev": "webpack-dev-server --open --hot --mode development",
     "build": "webpack -p --env production",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "npm run build && node server.js",
+    "server": "npm run build && node server/server.js",
     "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
